@@ -1,0 +1,7 @@
+Flask
+Flask-Mail
+Flask-Babel
+python-dotenv
+requests
+Pillow
+gunicorn
