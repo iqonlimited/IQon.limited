@@ -1,0 +1,13 @@
+body {
+    background-color: #f7f7f7;
+    color: #222;
+}
+
+.sidebar {
+    background-color: #ffffff;
+    border-right: 1px solid #ccc;
+}
+
+.sidebar a {
+    color: #222;
+}

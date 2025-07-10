@@ -1,0 +1,15 @@
+{
+  "background": "#fff8f0",
+  "foreground": "#333333",
+  "primary": "#FF69B4",
+  "font": "'Comic Sans MS', cursive",
+  "button": {
+    "bg": "#FFD1DC",
+    "text": "#333333"
+  },
+  "input": {
+    "bg": "#FFE4E1",
+    "text": "#333333",
+    "border": "#FFC0CB"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "Dark",
+  "background": "#121212",
+  "text": "#FFFFFF",
+  "accent": "#BB86FC",
+  "button": {
+    "background": "#1F1F1F",
+    "text": "#FFFFFF"
+  },
+  "input": {
+    "background": "#2C2C2C",
+    "text": "#FFFFFF"
+  },
+  "link": "#03DAC5",
+  "border": "#2C2C2C"
+}
