@@ -1,0 +1,7 @@
+{
+  "Basic": { "monthly": 4, "yearly": 40, "chat_limit": 1000 },
+  "Intermediate": { "monthly": 8, "yearly": 90, "chat_limit": 5000 },
+  "Ingenious": { "monthly": 14, "yearly": 120, "chat_limit": 20000 },
+  "Masters": { "monthly": 39, "yearly": 399, "chat_limit": 100000 },
+  "Student": { "monthly": 6, "yearly": null, "chat_limit": 5000 }
+}

@@ -1,0 +1,14 @@
+{
+  "basic": [
+    {"question": "What is AI?", "answer": "AI is artificial intelligence."}
+  ],
+  "intermediate": [
+    {"question": "What is AI?", "answer": "AI is the simulation of human intelligence in machines."}
+  ],
+  "ingenious": [
+    {"question": "What is AI?", "answer": "AI includes deep learning, machine learning, and complex decision-making."}
+  ],
+  "masters": [
+    {"question": "What is AI?", "answer": "AI is the interdisciplinary science that combines algorithms, data, and computing power to simulate intelligent behavior."}
+  ]
+}

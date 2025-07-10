@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Ebook Store</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body class="dark-theme">
+  {% include 'base.html' %}
+  
+  <div class="container">
+    <h1 class="store-title">📚 Ebook Store</h1>
+
+    <div class="ebook-grid">
+      {% for ebook in ebooks %}
+        <div class="ebook-card">
+          <img src="{{ url_for('static', filename=ebook.cover_image.replace('ebooks/', '')) }}" alt="{{ ebook.title }}" class="ebook-cover"/>
+
+          <div class="ebook-info">
+            <h2>{{ ebook.title }}</h2>
+            <p><strong>Author:</strong> {{ ebook.author }}</p>
+            <p><strong>Language:</strong> {{ ebook.language }}</p>
+            <p><strong>Category:</strong> {{ ebook.category }}</p>
+            <p class="description">{{ ebook.description }}</p>
+            <p><strong>Price:</strong> 
+              {% if user_membership in ['Masters', 'Students'] %}
+                FREE
+              {% else %}
+                ${{ ebook.price }}
+              {% endif %}
+            </p>
+
+            {% if ebook.audio_available %}
+              <p class="audio-badge">🎧 Audiobook Available</p>
+            {% endif %}
+
+            <div class="ebook-actions">
+              {% if user_owns_ebook(ebook.id) or user_membership in ['Masters', 'Students'] %}
+                <a href="/ebook-view/{{ ebook.id }}" class="btn btn-primary">Read Now</a>
+                {% if ebook.audio_available %}
+                  <a href="{{ url_for('static', filename=ebook.audiobook_path.replace('static/', '')) }}" class="btn btn-secondary" download>Download Audio</a>
+                {% endif %}
+              {% else %}
+                <form method="POST" action="/buy-ebook">
+                  <input type="hidden" name="ebook_id" value="{{ ebook.id }}">
+                  <button type="submit" class="btn btn-success">Buy for ${{ ebook.price }}</button>
+                </form>
+              {% endif %}
+            </div>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+
+  <style>
+    .container {
+      max-width: 1100px;
+      margin: auto;
+      padding: 2rem;
+    }
+    .store-title {
+      text-align: center;
+      margin-bottom: 2rem;
+      color: #fff;
+    }
+    .ebook-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 20px;
+    }
+    .ebook-card {
+      background: #1e1e1e;
+      padding: 1rem;
+      border-radius: 10px;
+      box-shadow: 0 0 12px rgba(255,255,255,0.1);
+      display: flex;
+      flex-direction: column;
+      color: #fff;
+    }
+    .ebook-cover {
+      max-width: 100%;
+      border-radius: 5px;
+    }
+    .ebook-info h2 {
+      margin: 0.5rem 0 0.3rem;
+    }
+    .description {
+      font-size: 0.9rem;
+      color: #ccc;
+      margin: 0.5rem 0;
+    }
+    .audio-badge {
+      background-color: #28a745;
+      color: white;
+      padding: 2px 6px;
+      border-radius: 4px;
+      font-size: 0.8rem;
+      display: inline-block;
+      margin-bottom: 0.5rem;
+    }
+    .ebook-actions {
+      margin-top: auto;
+    }
+    .btn {
+      display: inline-block;
+      padding: 8px 12px;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .btn-primary {
+      background: #007bff;
+      color: white;
+    }
+    .btn-secondary {
+      background: #6c757d;
+      color: white;
+      margin-left: 10px;
+    }
+    .btn-success {
+      background: #28a745;
+      color: white;
+    }
+  </style>
+</body>
+</html>

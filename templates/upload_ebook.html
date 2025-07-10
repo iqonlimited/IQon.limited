@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Upload Ebook - Admin/Employee</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Upload a New Ebook</h1>
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</header>
+
+<main>
+  <form action="{{ url_for('upload_ebook') }}" method="POST" enctype="multipart/form-data">
+    <input type="text" name="title" placeholder="Ebook Title" required>
+    <input type="text" name="author" placeholder="Author" required>
+    <input type="number" name="price" placeholder="Price (USD)" required>
+    <textarea name="description" placeholder="Ebook Description" required></textarea>
+    <input type="file" name="ebook_file" accept=".pdf,.epub" required>
+    <button type="submit" class="btn">Upload Ebook</button>
+  </form>
+</main>
+</body>
+</html>
+{% endblock %}

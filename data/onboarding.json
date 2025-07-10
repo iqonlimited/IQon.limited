@@ -1,0 +1,7 @@
+{
+  "enabled": true,
+  "steps": [
+    { "step": 1, "text": "Welcome!", "shown_to": ["u1","u2"] },
+    { "step": 2, "text": "Use chatbot", "shown_to": [] }
+  ]
+}

@@ -1,0 +1,11 @@
+{
+  "Basic": {
+    "What is AI?": { "response": "AI is Artificial Intelligence.", "last_updated": "2025-06-01T10:00:00Z" }
+  },
+  "Intermediate": {
+    "What is AI?": { "response": "AI simulates human intelligence.", "version": 2 }
+  },
+  "Masters": {
+    "What is AI?": { "response": "AI is the intelligence demonstrated by machines.", "examples": ["GPT-4","BERT"] }
+  }
+}

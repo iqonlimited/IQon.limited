@@ -1,0 +1,4 @@
+{
+  "admin": { "passcode": "admin123", "assignable": false },
+  "employee": { "passcode": "emp456", "assignable": true }
+}

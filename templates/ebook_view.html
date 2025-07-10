@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ ebook.title }} - Read Ebook</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+    <header>
+        <h1>{{ ebook.title }}</h1>
+        <a href="{{ url_for('ebook_store') }}">← Back to Store</a>
+    </header>
+
+    <main>
+        <section class="ebook-content">
+            <h2>By {{ ebook.author }}</h2>
+            <article>
+                <pre>{{ ebook.content }}</pre>
+            </article>
+        </section>
+
+        <footer>
+            <a class="btn" href="{{ url_for('audiobook_dashboard', ebook_id=ebook.id) }}">🎧 Convert to Audiobook</a>
+        </footer>
+    </main>
+</body>
+</html>
+{% endblock %}

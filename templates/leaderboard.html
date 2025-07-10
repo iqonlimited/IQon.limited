@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Leaderboard - AI App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+    <h1>Leaderboard</h1>
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</header>
+
+<main>
+    <section>
+        <h2>Top Users by Country</h2>
+        <ul>
+            {% for entry in leaderboard.country %}
+                <li>{{ entry.name }} - {{ entry.count }} chats</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Top Users by State</h2>
+        <ul>
+            {% for entry in leaderboard.state %}
+                <li>{{ entry.name }} - {{ entry.count }} chats</li>
+            {% endfor %}
+        </ul>
+    </section>
+
+    <section>
+        <h2>Top Users by City</h2>
+        <ul>
+            {% for entry in leaderboard.city %}
+                <li>{{ entry.name }} - {{ entry.count }} chats</li>
+            {% endfor %}
+        </ul>
+    </section>
+</main>
+</body>
+</html>
+{% endblock %}

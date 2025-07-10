@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Training Mode</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="dashboard">
+    <h1>AI Training Mode</h1>
+    <form method="POST" action="/train-ai">
+      <textarea name="training_data" placeholder="Enter new questions, answers or corrections..."></textarea>
+      <select name="membership_tier">
+        <option value="basic">Basic</option>
+        <option value="intermediate">Intermediate</option>
+        <option value="ingenious">Ingenious</option>
+        <option value="masters">Masters</option>
+      </select>
+      <button type="submit">Train AI</button>
+    </form>
+  </div>
+</body>
+</html>
+{% endblock %}

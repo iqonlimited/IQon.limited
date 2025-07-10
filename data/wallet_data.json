@@ -1,0 +1,3 @@
+[
+  { "user_id": "u2", "balance": 50, "transactions": [{ "id": "t1", "amount": 8, "type": "membership", "date": "2025-06-20T10:00:00Z" }] }
+]

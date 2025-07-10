@@ -1,0 +1,5 @@
+{
+  "ebooks": [{ "id": "e1", "title": "Mastering Python" }],
+  "chat_questions": ["What is AI?"],
+  "forum": [{ "id": "f1", "question": "Can AI write poetry?" }]
+}

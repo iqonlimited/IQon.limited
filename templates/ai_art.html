@@ -1,0 +1,32 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Art Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Generate AI Art</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <form method="POST" action="{{ url_for('generate_ai_art') }}">
+    <input type="text" name="prompt" placeholder="Describe your image..." required>
+    <button type="submit" class="btn">Generate</button>
+  </form>
+
+  {% if image_url %}
+    <section>
+      <h2>Result</h2>
+      <img src="{{ image_url }}" alt="Generated Art">
+    </section>
+  {% endif %}
+</main>
+</body>
+</html>
+{% endblock %}

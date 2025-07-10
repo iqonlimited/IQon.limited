@@ -1,0 +1,40 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Admin Analytics</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="dashboard">
+    <h1>Analytics Dashboard</h1>
+    <div class="metrics">
+      <div>Total Users: <strong>{{ total_users }}</strong></div>
+      <div>Total Sales: <strong>${{ total_sales }}</strong></div>
+      <div>Active Subscriptions: <strong>{{ active_subscriptions }}</strong></div>
+      <div>Questions Asked: <strong>{{ total_questions }}</strong></div>
+    </div>
+    <canvas id="analyticsChart"></canvas>
+  </div>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script>
+    const ctx = document.getElementById('analyticsChart').getContext('2d');
+    const chart = new Chart(ctx, {
+      type: 'line',
+      data: {
+        labels: {{ labels }},
+        datasets: [{
+          label: 'Chats per Day',
+          data: {{ data }},
+          borderColor: 'rgb(255, 99, 132)',
+          fill: false
+        }]
+      }
+    });
+  </script>
+</body>
+</html>
+{% endblock %}

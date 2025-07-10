@@ -1,0 +1,84 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AI App - Home</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="{{ session.get('theme', 'dark') }}">
+  <div class="app-container">
+    <nav class="sidebar">
+      <div class="logo">AI App</div>
+      <ul>
+        <li><a href="{{ url_for('index') }}">Home</a></li>
+        <li><a href="{{ url_for('chatbot_guest') }}">Chatbot</a></li>
+        <li><a href="{{ url_for('ebook_store') }}">Ebooks</a></li>
+        <li><a href="{{ url_for('convert') }}">File Converter</a></li>
+        <li><a href="{{ url_for('image_to_anime') }}">Image → Anime</a></li>
+        <li><a href="{{ url_for('photo_to_video') }}">Photo → Video</a></li>
+        <li><a href="{{ url_for('text_to_video') }}">Text → Video</a></li>
+        <li><a href="{{ url_for('ai_art_generator') }}">AI Art</a></li>
+        <li><a href="{{ url_for('audiobook') }}">Audiobook</a></li>
+        <li><a href="{{ url_for('forum') }}">Forum</a></li>
+      </ul>
+      <div class="sidebar-footer">
+        <button onclick="openUpgrade()">Upgrade Plan</button>
+      </div>
+    </nav>
+    <div class="main-content">
+      <header>
+        <h1>Welcome to AI App</h1>
+        <div class="profile-icon" onclick="toggleProfileMenu()">👤</div>
+      </header>
+      <section class="hero">
+        <h2>Explore powerful AI tools all in one place</h2>
+        <button onclick="openLogin()">Login / Signup</button>
+      </section>
+      <footer>
+        <input type="text" placeholder="Ask or command…" />
+      </footer>
+    </div>
+  </div>
+
+  <!-- Login / Signup Modal -->
+  <div id="loginModal" class="modal">
+    <form class="modal-content" action="{{ url_for('login') }}" method="post">
+      <h2>Login / Signup</h2>
+      <input type="email" name="email" placeholder="Email" required>
+      <input type="password" name="password" placeholder="Password or passcode" required>
+      <button type="submit">Continue</button>
+      <button type="button" onclick="closeLogin()">Cancel</button>
+    </form>
+  </div>
+
+  <!-- Upgrade Modal -->
+  <div id="upgradeModal" class="modal">
+    <form class="modal-content" action="{{ url_for('upgrade') }}" method="get">
+      <h2>Upgrade Plan</h2>
+      {% for p in plans %}
+        <div class="plan-card">
+          <h3>{{ p.name }} - {{ p.price }} / {{ p.duration }}</h3>
+          <p>{{ p.description }}</p>
+          <button type="submit" name="plan" value="{{ p.key }}">Choose</button>
+        </div>
+      {% endfor %}
+      <button type="button" onclick="closeUpgrade()">Cancel</button>
+    </form>
+  </div>
+
+  <script>
+    function openLogin() { document.getElementById('loginModal').style.display = 'block'; }
+    function closeLogin() { document.getElementById('loginModal').style.display = 'none'; }
+    function openUpgrade() { document.getElementById('upgradeModal').style.display = 'block'; }
+    function closeUpgrade() { document.getElementById('upgradeModal').style.display = 'none'; }
+    function toggleProfileMenu() {
+      window.location.href = "{{ url_for('login') }}";
+    }
+  </script>
+</body>
+</html>
+{% endblock %}

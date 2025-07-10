@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Chatbot</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="chatbot-container">
+    <h1>AI Chatbot</h1>
+    <div class="chat-box" id="chat-box">
+      {% for message in chat_history %}
+        <div class="message {{ message.sender }}">
+          <strong>{{ message.sender }}:</strong> {{ message.text }}
+        </div>
+      {% endfor %}
+    </div>
+    <form id="chat-form" method="POST" action="/chat">
+      <input type="text" name="user_input" placeholder="Ask something..." required>
+      <button type="submit">Send</button>
+    </form>
+  </div>
+
+  <script>
+    const chatBox = document.getElementById('chat-box');
+    chatBox.scrollTop = chatBox.scrollHeight;
+  </script>
+</body>
+</html>
+{% endblock %}

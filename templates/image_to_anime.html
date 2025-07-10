@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Image to Anime Converter</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Convert Photo to Anime</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <form action="{{ url_for('image_to_anime') }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="photo" accept="image/*" required>
+    <button type="submit" class="btn">Convert to Anime</button>
+  </form>
+</main>
+</body>
+</html>
+{% endblock %}

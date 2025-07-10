@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Audiobook Generator - AI App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+    <header>
+        <h1>Audiobook Generator</h1>
+        <a href="{{ url_for('ebook_view', ebook_id=ebook.id) }}">← Back to Ebook</a>
+    </header>
+
+    <main>
+        <section>
+            <h2>{{ ebook.title }}</h2>
+            <p>By {{ ebook.author }}</p>
+
+            {% if audiobook_exists %}
+                <audio controls>
+                    <source src="{{ url_for('static', filename='audiobooks/' + audiobook_filename) }}" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                <br>
+                <a class="btn" href="{{ url_for('download_audiobook', ebook_id=ebook.id) }}">⬇️ Download MP3</a>
+            {% else %}
+                <form method="post" action="{{ url_for('generate_audiobook', ebook_id=ebook.id) }}">
+                    <button type="submit" class="btn">Generate Audiobook</button>
+                </form>
+            {% endif %}
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}

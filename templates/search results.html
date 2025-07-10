@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Search Results</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Search Results</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <section>
+    <h2>Ebooks</h2>
+    <ul>
+      {% for ebook in results.ebooks %}
+        <li>{{ ebook.title }} by {{ ebook.author }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Chat History</h2>
+    <ul>
+      {% for chat in results.chats %}
+        <li>{{ chat.timestamp }}: {{ chat.message }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <section>
+    <h2>Uploaded Files</h2>
+    <ul>
+      {% for file in results.uploads %}
+        <li>{{ file.filename }}</li>
+      {% endfor %}
+    </ul>
+  </section>
+</main>
+</body>
+</html>
+{% endblock %}

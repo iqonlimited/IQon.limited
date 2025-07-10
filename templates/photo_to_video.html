@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Photo to Video Templates</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Create Video from Photos</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <form action="{{ url_for('photo_to_video') }}" method="POST" enctype="multipart/form-data">
+    <input type="file" name="photos" accept="image/*" multiple required>
+    <select name="template">
+      <option value="slideshow">Slideshow</option>
+      <option value="cinematic">Cinematic</option>
+    </select>
+    <button type="submit" class="btn">Generate Video</button>
+  </form>
+</main>
+</body>
+</html>
+{% endblock %}

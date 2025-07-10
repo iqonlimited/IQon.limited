@@ -1,0 +1,41 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Settings - AI App</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>App Settings</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <form method="POST" action="{{ url_for('update_settings') }}">
+    <label>Language:
+      <select name="language">
+        <option value="en">English</option>
+        <option value="hi">Hindi</option>
+        <option value="es">Spanish</option>
+      </select>
+    </label>
+
+    <label>Theme:
+      <select name="theme">
+        <option value="dark">Dark</option>
+        <option value="light">Light</option>
+        <option value="anime">Anime</option>
+        <option value="minimal">Minimal</option>
+      </select>
+    </label>
+
+    <button type="submit" class="btn">Save</button>
+  </form>
+</main>
+</body>
+</html>
+{% endblock %}

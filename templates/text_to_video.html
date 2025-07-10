@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Text to Video Generator</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+  <h1>Generate Video from Text</h1>
+  <a href="{{ url_for('dashboard') }}">← Back</a>
+</header>
+
+<main>
+  <form action="{{ url_for('text_to_video') }}" method="POST">
+    <textarea name="script" placeholder="Enter your script here..." required></textarea>
+    <button type="submit" class="btn">Generate Video</button>
+  </form>
+</main>
+</body>
+</html>
+{% endblock %}

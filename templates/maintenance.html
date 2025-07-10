@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Under Maintenance</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/css/styles.css">
+  <style>
+    body {
+      background-color: #1a1a1a;
+      color: #fff;
+      font-family: 'Segoe UI', sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+      text-align: center;
+    }
+    .maintenance-box {
+      max-width: 600px;
+      padding: 30px;
+      border: 1px solid #333;
+      border-radius: 10px;
+      background-color: #222;
+    }
+    h1 {
+      font-size: 36px;
+      margin-bottom: 20px;
+      color: #f44336;
+    }
+    p {
+      font-size: 18px;
+      color: #bbb;
+    }
+    .logo {
+      margin-bottom: 20px;
+    }
+    .logo img {
+      height: 80px;
+    }
+  </style>
+</head>
+<body>
+  <div class="maintenance-box">
+    <div class="logo">
+      <img src="/static/images/logo.png" alt="App Logo">
+    </div>
+    <h1>We'll Be Back Soon!</h1>
+    <p>Our AI app is currently undergoing scheduled maintenance.<br>
+    Please check back later. We appreciate your patience.</p>
+  </div>
+</body>
+</html>
+{% endblock %}

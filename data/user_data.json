@@ -1,0 +1,10 @@
+[
+  {
+    "email": "john@example.com",
+    "membership": "intermediate",
+    "language": "en",
+    "preferred_theme": "dark",
+    "wallet_balance": 4.0,
+    "ebook_purchased": ["book123", "book124"]
+  }
+]

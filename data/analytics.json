@@ -1,0 +1,6 @@
+{
+  "started_at": "2025-06-01T00:00:00Z",
+  "daily_active_users": { "2025-06-20": 15 },
+  "monthly_chat_count": { "2025-06": 800 },
+  "feature_usage": { "chatbot": 500, "converter": 150 }
+}

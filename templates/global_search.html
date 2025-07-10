@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Global Search</title>
+  <link rel="stylesheet" href="/static/css/styles.css">
+</head>
+<body>
+  <div class="search-page">
+    <h1>Global Search</h1>
+    <form method="GET" action="/search">
+      <input type="text" name="q" placeholder="Search across chats, ebooks, uploads..." required>
+      <button type="submit">Search</button>
+    </form>
+
+    {% if results %}
+      <ul>
+        {% for result in results %}
+          <li><a href="{{ result.url }}">{{ result.title }}</a> - {{ result.snippet }}</li>
+        {% endfor %}
+      </ul>
+    {% else %}
+      <p>No results yet. Try searching for something.</p>
+    {% endif %}
+  </div>
+</body>
+</html>
+{% endblock %}

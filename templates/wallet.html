@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Your Wallet - AI App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+    <header>
+        <h1>Wallet</h1>
+        <div class="wallet-user">
+            <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+        </div>
+    </header>
+
+    <main>
+        <section class="wallet-info">
+            <h2>Wallet Balance</h2>
+            <p><strong>${{ user_wallet_balance }}</strong></p>
+            <p>This balance can be used to purchase ebooks and other services.</p>
+        </section>
+
+        <section class="wallet-history">
+            <h3>Transaction History</h3>
+            <ul>
+                {% for tx in transactions %}
+                    <li>{{ tx.date }} - {{ tx.description }} - ${{ tx.amount }}</li>
+                {% endfor %}
+            </ul>
+        </section>
+    </main>
+</body>
+</html>
+{% endblock %}

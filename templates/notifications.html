@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Send Notification - AI App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+    <h1>Send Notification</h1>
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</header>
+
+<main>
+    <section>
+        <h2>New Notification</h2>
+        <form method="POST" action="{{ url_for('send_notification') }}">
+            <label for="audience">Select Audience:</label>
+            <select name="audience" required>
+                <option value="all">All Users</option>
+                <option value="basic">Basic</option>
+                <option value="intermediate">Intermediate</option>
+                <option value="ingenious">Ingenious</option>
+                <option value="masters">Masters</option>
+            </select>
+
+            <textarea name="message" placeholder="Enter your message..." required></textarea>
+            <button type="submit" class="btn">Send</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>Recent Notifications</h2>
+        <ul>
+            {% for note in notifications %}
+                <li>{{ note.date }} — {{ note.message }}</li>
+            {% endfor %}
+        </ul>
+    </section>
+</main>
+</body>
+</html>
+{% endblock %}

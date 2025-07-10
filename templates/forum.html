@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Community Forum - AI App</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body class="dark-theme">
+<header>
+    <h1>Community Forum - Your Ideas</h1>
+    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</header>
+
+<main>
+    <section>
+        <h2>Ask a Question</h2>
+        <form method="POST" action="{{ url_for('submit_forum_question') }}">
+            <textarea name="question" placeholder="Write your idea or question..." required></textarea>
+            <button type="submit" class="btn">Submit</button>
+        </form>
+    </section>
+
+    <section>
+        <h2>All Questions & Suggestions</h2>
+        {% for q in questions %}
+            <div class="forum-question">
+                <p><strong>Q:</strong> {{ q.text }}</p>
+                {% if q.answer %}
+                    <p><strong>A:</strong> {{ q.answer }}</p>
+                {% elif is_admin_or_employee %}
+                    <form method="POST" action="{{ url_for('answer_forum_question', question_id=q.id) }}">
+                        <textarea name="answer" placeholder="Your answer..." required></textarea>
+                        <button type="submit" class="btn">Post Answer</button>
+                    </form>
+                {% else %}
+                    <p><em>No answer yet.</em></p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </section>
+</main>
+</body>
+</html>
+{% endblock %}

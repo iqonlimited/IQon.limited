@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %}Chatbot{% endblock %}
+{% block content %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>User Dashboard</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% include 'sidebar.html' %}
+    <div class="main-content">
+        <h2>Welcome, {{ username }}</h2>
+        <div class="features">
+            <a href="{{ url_for('chatbot') }}">Chatbot</a>
+            <a href="{{ url_for('text_to_video') }}">Text to Video</a>
+            <a href="{{ url_for('image_to_anime') }}">Image to Anime</a>
+            <a href="{{ url_for('photo_to_video') }}">Photo to Video</a>
+            <a href="{{ url_for('file_converter') }}">File Converter</a>
+            <a href="{{ url_for('ebook_store') }}">Ebook Store</a>
+            <a href="{{ url_for('wallet') }}">Wallet</a>
+            <a href="{{ url_for('voice_chat') }}">Voice Chat</a>
+            <a href="{{ url_for('ai_art_generator') }}">AI Art Generator</a>
+            <a href="{{ url_for('audiobook_dashboard') }}">Audiobooks</a>
+            <a href="{{ url_for('leaderboard') }}">Leaderboards</a>
+        </div>
+    </div>
+</body>
+</html>
+{% endblock %}

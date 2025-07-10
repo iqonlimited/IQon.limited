@@ -1,0 +1,17 @@
+[
+  { "id": "n1", "to": "all", "message": "Your monthly summary is out!", "date": "2025-06-20T08:00:00Z", "read_by": [] },
+  { "id": "n2", "to": ["u2"], "message": "New ebook available.", "date": "2025-06-15T12:00:00Z", "read_by": [] }
+
+]
+
+{
+  "notif_001": {
+    "id": "notif_001",
+    "timestamp": "2025-06-15T12:00:00",
+    "message": "Welcome to the AI app!",
+    "sender": "admin1",
+    "audience": "all",
+    "level": "info",
+    "read_by": ["user123"]
+  }
+}

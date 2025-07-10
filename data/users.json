@@ -1,0 +1,24 @@
+[
+  {
+    "id": "u1",
+    "email": "admin@example.com",
+    "password_hash": "pbkdf2:sha256:100000$abc...", 
+    "role": "admin",
+    "membership": "Masters",
+    "wallet_balance": 0,
+    "joined_at": "2025-06-01T09:12:23Z",
+    "locale": "en",
+    "notifications": []
+  },
+  {
+    "id": "u2",
+    "email": "employee@example.com",
+    "password_hash": "pbkdf2:sha256:100000$def...",
+    "role": "employee",
+    "membership": "Intermediate",
+    "wallet_balance": 0,
+    "joined_at": "2025-06-03T14:22:10Z",
+    "locale": "en",
+    "notifications": []
+  }
+]
