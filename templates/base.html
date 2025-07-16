@@ -113,6 +113,36 @@
     <i class="fas fa-user-circle"></i> <a href="/settings" style="color: #aaa;">Profile</a> |
     <a href="/logout" style="color: #aaa;">Logout</a>
   </div>
+  
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %}My AI App{% endblock %}</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+</head>
+<body>
 
+<div class="sidebar">
+  <a href="/dashboard">🏠</a>
+  <a href="/chat">💬</a>
+  <a href="/upload">⏫</a>
+  <a href="/membership" class="membership-btn">💎</a>
+</div>
+
+<div class="main-content">
+  {% block content %}{% endblock %}
+</div>
+
+<!-- Login / Guest Popup -->
+<div id="loginPopup" class="popup-overlay">
+  <div class="popup-content">
+    <h2>Welcome!</h2>
+    <button onclick="login()">Login</button>
+    <button onclick="guestAccess()">Continue as Guest</button>
+  </div>
+</div>
+<script src="{{ url_for('static', filename='js/login_popup.js') }}"></script>
 </body>
 </html>
