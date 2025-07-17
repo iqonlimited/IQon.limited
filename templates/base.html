@@ -2,137 +2,54 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>{% block title %}AI App{% endblock %}</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="/static/css/styles.css">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-    body {
-      margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #121212;
-      color: white;
-    }
-    .sidebar {
-      position: fixed;
-      top: 0;
-      left: 0;
-      width: 230px;
-      height: 100vh;
-      background: #1e1e1e;
-      padding-top: 20px;
-      overflow-y: auto;
-    }
-    .sidebar h2 {
-      text-align: center;
-      color: #0af;
-      margin-bottom: 20px;
-    }
-    .sidebar a {
-      display: block;
-      color: #ccc;
-      padding: 12px 20px;
-      text-decoration: none;
-      transition: background 0.2s ease-in-out;
-    }
-    .sidebar a:hover {
-      background-color: #333;
-      color: #fff;
-    }
-    .main-content {
-      margin-left: 230px;
-      padding: 20px;
-    }
-    .profile-menu {
-      position: fixed;
-      bottom: 20px;
-      left: 20px;
-      color: #aaa;
-    }
-    .profile-menu i {
-      font-size: 20px;
-      margin-right: 10px;
-    }
-    .notification-bar {
-      position: fixed;
-      top: 0;
-      right: 0;
-      padding: 10px;
-      background: #222;
-      color: #f90;
-      width: calc(100% - 230px);
-      text-align: right;
-    }
-    footer {
-      text-align: center;
-      color: #555;
-      font-size: 12px;
-      margin-top: 40px;
-    }
-  </style>
-  <!-- Google Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-
-  <div class="sidebar">
-    <h2>🤖 AI App</h2>
-    <a href="/dashboard">Dashboard</a>
-    <a href="/chatbot">AI Chatbot</a>
-    <a href="/text-to-video">Text to Video</a>
-    <a href="/image-to-anime">Image to Anime</a>
-    <a href="/photo-to-video">Photo to Video</a>
-    <a href="/converter">File Converter</a>
-    <a href="/ai-art">AI Art Generator</a>
-    <a href="/voice-chat">Voice Chat</a>
-    <a href="/ebook-store">Ebook Store</a>
-    <a href="/audiobook">Audiobooks</a>
-    <a href="/leaderboard">Leaderboard</a>
-    <a href="/forum">Community Forum</a>
-    <a href="/your-idea">Your Idea</a>
-    <a href="/notifications">Notifications</a>
-    <a href="/wallet">Wallet</a>
-    <a href="/upgrade">Upgrade Plan</a>
-    <a href="/settings">Settings</a>
-    <a href="/global-search">Global Search</a>
-    <a href="/maintenance">Maintenance</a>
-  </div>
-
-  <div class="notification-bar">
-    {% block notifications %}{% endblock %}
-  </div>
-
-  <div class="main-content">
-    {% block content %}{% endblock %}
-    <footer>
-      &copy; 2025 AI App. All rights reserved.
-    </footer>
-  </div>
-
-  <div class="profile-menu">
-    <i class="fas fa-user-circle"></i> <a href="/settings" style="color: #aaa;">Profile</a> |
-    <a href="/logout" style="color: #aaa;">Logout</a>
-  </div>
-  
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}My AI App{% endblock %}</title>
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
 
+<!-- Sidebar -->
 <div class="sidebar">
-  <a href="/dashboard">🏠</a>
-  <a href="/chat">💬</a>
-  <a href="/upload">⏫</a>
-  <a href="/membership" class="membership-btn">💎</a>
+  <h2>🤖 AI App</h2>
+  <a href="/dashboard">🏠 Dashboard</a>
+  <a href="/chatbot">💬 AI Chatbot</a>
+  <a href="/text-to-video">🎬 Text to Video</a>
+  <a href="/image-to-anime">🎨 Image to Anime</a>
+  <a href="/photo-to-video">📽️ Photo to Video</a>
+  <a href="/converter">🗂️ File Converter</a>
+  <a href="/ai-art">🖌️ AI Art Generator</a>
+  <a href="/voice-chat">🎙️ Voice Chat</a>
+  <a href="/ebook-store">📚 Ebook Store</a>
+  <a href="/audiobook">🎧 Audiobooks</a>
+  <a href="/leaderboard">🏆 Leaderboard</a>
+  <a href="/forum">💬 Community Forum</a>
+  <a href="/your-idea">💡 Your Idea</a>
+  <a href="/notifications">🔔 Notifications</a>
+  <a href="/wallet">💰 Wallet</a>
+  <a href="/upgrade">💎 Upgrade Plan</a>
+  <a href="/settings">⚙️ Settings</a>
+  <a href="/global-search">🌍 Global Search</a>
+  <a href="/maintenance">🚧 Maintenance</a>
+
+  <a href="/membership" class="membership-btn">💎 Membership</a>
 </div>
 
+<!-- Notification Bar -->
+<div class="notification-bar">
+  {% block notifications %}{% endblock %}
+</div>
+
+<!-- Main Content -->
 <div class="main-content">
   {% block content %}{% endblock %}
+  <footer>&copy; 2025 AI App. All rights reserved.</footer>
+</div>
+
+<!-- Profile Menu -->
+<div class="profile-menu">
+  <i class="fas fa-user-circle"></i> <a href="/settings">Profile</a> |
+  <a href="/logout">Logout</a>
 </div>
 
 <!-- Login / Guest Popup -->
@@ -143,6 +60,8 @@
     <button onclick="guestAccess()">Continue as Guest</button>
   </div>
 </div>
+
 <script src="{{ url_for('static', filename='js/login_popup.js') }}"></script>
+
 </body>
 </html>
