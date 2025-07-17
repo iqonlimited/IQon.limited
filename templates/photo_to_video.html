@@ -1,37 +1,24 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
+{% block title %}Photo to Video{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Photo to Video Templates</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-<header>
-  <h1>Create Video from Photos</h1>
-  <a href="{{ url_for('dashboard') }}">← Back</a>
-</header>
+<h1>Create Video from Photos</h1>
 
-<main>
-  <form action="{{ url_for('photo_to_video') }}" method="POST" enctype="multipart/form-data">
-    <input type="file" name="photos" accept="image/*" multiple required>
-    <select name="template">
-      <option value="slideshow">Slideshow</option>
-      <option value="cinematic">Cinematic</option>
-    </select>
-    <button type="submit" class="btn">Generate Video</button>
-  </form>
-</main>
-  <div class="container">
-  <h1 class="header-title">Your Need<br>in Seconds</h1>
-
-  <form action="/your-action" method="POST">
-    <input type="text" name="input_field" placeholder="Type here..." required>
-    <button type="submit">Submit</button>
-  </form>
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
 </div>
-</body>
-</html>
+
+<hr>
+
+<form action="{{ url_for('photo_to_video') }}" method="POST" enctype="multipart/form-data" class="center-form">
+  <input type="file" name="photos" accept="image/*" multiple required><br><br>
+
+  <label for="template">Choose Template:</label><br>
+  <select name="template" id="template">
+    <option value="slideshow">Slideshow</option>
+    <option value="cinematic">Cinematic</option>
+  </select><br><br>
+
+  <button type="submit">Generate Video</button>
+</form>
 {% endblock %}
