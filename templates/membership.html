@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}Membership Plans{% endblock %}
+
+{% block content %}
+<h1>Upgrade Your Plan</h1>
+
+<div class="membership-options">
+
+  <div class="center-form">
+    <h2>Basic Plan - $4/month</h2>
+    <form action="/upgrade/basic" method="POST">
+      <button type="submit">Choose Basic</button>
+    </form>
+  </div>
+
+  <div class="center-form">
+    <h2>Intermediate Plan - $8/month</h2>
+    <form action="/upgrade/intermediate" method="POST">
+      <button type="submit">Choose Intermediate</button>
+    </form>
+  </div>
+
+  <div class="center-form">
+    <h2>Ingenious Plan - $14/month</h2>
+    <form action="/upgrade/ingenious" method="POST">
+      <button type="submit">Choose Ingenious</button>
+    </form>
+  </div>
+
+  <div class="center-form">
+    <h2>Masters Plan - $39/month</h2>
+    <form action="/upgrade/masters" method="POST">
+      <button type="submit">Choose Masters</button>
+    </form>
+  </div>
+
+  <div class="center-form">
+    <h2>Students Plan - $6/month</h2>
+    <form action="/upgrade/students" method="POST">
+      <button type="submit">Choose Students</button>
+    </form>
+  </div>
+
+</div>
+{% endblock %}
