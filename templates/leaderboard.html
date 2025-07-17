@@ -1,47 +1,55 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
+{% block title %}Leaderboard{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Leaderboard - AI App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-<header>
-    <h1>Leaderboard</h1>
-    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
-</header>
+<h1>Leaderboard</h1>
 
-<main>
-    <section>
-        <h2>Top Users by Country</h2>
-        <ul>
-            {% for entry in leaderboard.country %}
-                <li>{{ entry.name }} - {{ entry.count }} chats</li>
-            {% endfor %}
-        </ul>
-    </section>
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</div>
 
-    <section>
-        <h2>Top Users by State</h2>
-        <ul>
-            {% for entry in leaderboard.state %}
-                <li>{{ entry.name }} - {{ entry.count }} chats</li>
-            {% endfor %}
-        </ul>
-    </section>
+<hr>
 
-    <section>
-        <h2>Top Users by City</h2>
-        <ul>
-            {% for entry in leaderboard.city %}
-                <li>{{ entry.name }} - {{ entry.count }} chats</li>
-            {% endfor %}
-        </ul>
-    </section>
-</main>
-</body>
-</html>
+<h2>Top Users by Country</h2>
+<div class="center-form">
+  {% if leaderboard.country %}
+    <ul>
+      {% for entry in leaderboard.country %}
+        <li>{{ entry.name }} — {{ entry.count }} chats</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No country leaderboard data available.</p>
+  {% endif %}
+</div>
+
+<hr>
+
+<h2>Top Users by State</h2>
+<div class="center-form">
+  {% if leaderboard.state %}
+    <ul>
+      {% for entry in leaderboard.state %}
+        <li>{{ entry.name }} — {{ entry.count }} chats</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No state leaderboard data available.</p>
+  {% endif %}
+</div>
+
+<hr>
+
+<h2>Top Users by City</h2>
+<div class="center-form">
+  {% if leaderboard.city %}
+    <ul>
+      {% for entry in leaderboard.city %}
+        <li>{{ entry.name }} — {{ entry.count }} chats</li>
+      {% endfor %}
+    </ul>
+  {% else %}
+    <p>No city leaderboard data available.</p>
+  {% endif %}
+</div>
 {% endblock %}
