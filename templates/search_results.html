@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% block title %}Search Results{% endblock %}
+
+{% block content %}
+<h1>Search Results for "{{ query }}"</h1>
+
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</div>
+
+<hr>
+
+{% if results %}
+  <ul>
+    {% for result in results %}
+      <li><strong>{{ result.type }}:</strong> {{ result.title }}</li>
+    {% endfor %}
+  </ul>
+{% else %}
+  <p>No results found for your search query.</p>
+{% endif %}
+{% endblock %}
