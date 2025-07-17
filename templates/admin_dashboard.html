@@ -1,58 +1,35 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
+{% block title %}Admin Dashboard{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Admin Dashboard - AI App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-    <header>
-        <h1>Admin Dashboard</h1>
-        <div class="admin-info">
-            <span>Welcome, Admin</span>
-            <a href="{{ url_for('logout') }}">Logout</a>
-        </div>
-    </header>
+<h1>Welcome, Admin</h1>
 
-    <nav class="sidebar">
-        <ul>
-            <li><a href="{{ url_for('dashboard') }}">User View</a></li>
-            <li><a href="{{ url_for('admin_dashboard') }}" class="active">Dashboard</a></li>
-            <li><a href="{{ url_for('upload_ebook') }}">Upload Ebook</a></li>
-            <li><a href="{{ url_for('notifications') }}">Send Notifications</a></li>
-            <li><a href="{{ url_for('analytics') }}">Analytics</a></li>
-            <li><a href="{{ url_for('training_mode') }}">AI Training Mode</a></li>
-            <li><a href="{{ url_for('maintenance') }}">Maintenance Mode</a></li>
-            <li><a href="{{ url_for('forum') }}">Community Forum</a></li>
-            <li><a href="{{ url_for('settings') }}">Settings</a></li>
-        </ul>
-    </nav>
+<div class="center-form">
+  <a href="{{ url_for('upload_ebook') }}">Upload Ebook</a> |
+  <a href="{{ url_for('notifications') }}">Send Notifications</a> |
+  <a href="{{ url_for('analytics') }}">View Analytics</a> |
+  <a href="{{ url_for('training_mode') }}">AI Training Mode</a> |
+  <a href="{{ url_for('maintenance') }}">Maintenance Mode</a> |
+  <a href="{{ url_for('forum') }}">Community Forum</a> |
+  <a href="{{ url_for('settings') }}">Settings</a>
+</div>
 
-    <main>
-        <section>
-            <h2>Membership Logic</h2>
-            <p>Set answers for each membership tier:</p>
-            <div class="membership-settings">
-                <a href="{{ url_for('set_answers', plan='basic') }}">Basic Plan</a>
-                <a href="{{ url_for('set_answers', plan='intermediate') }}">Intermediate Plan</a>
-                <a href="{{ url_for('set_answers', plan='ingenious') }}">Ingenious Plan</a>
-                <a href="{{ url_for('set_answers', plan='masters') }}">Masters Plan</a>
-            </div>
-        </section>
+<hr>
 
-        <section>
-            <h2>Manage Revenue</h2>
-            <p>Control Stripe & Razorpay, track sales, configure wallet share per plan.</p>
-        </section>
+<h2>Membership Answer Settings</h2>
+<div class="center-form">
+  <a href="{{ url_for('set_answers', plan='basic') }}">Basic Plan</a> |
+  <a href="{{ url_for('set_answers', plan='intermediate') }}">Intermediate Plan</a> |
+  <a href="{{ url_for('set_answers', plan='ingenious') }}">Ingenious Plan</a> |
+  <a href="{{ url_for('set_answers', plan='masters') }}">Masters Plan</a>
+</div>
 
-        <section>
-            <h2>Team Management</h2>
-            <p>Manage employee accounts, reset passcodes, assign roles.</p>
-        </section>
-    </main>
-</body>
-</html>
+<hr>
+
+<h2>Revenue & Team Management</h2>
+<div class="center-form">
+  <p>Control Stripe & Razorpay, Track Sales, Manage Wallet Share</p>
+  <p>Manage Employee Accounts & Roles</p>
+</div>
+
 {% endblock %}
