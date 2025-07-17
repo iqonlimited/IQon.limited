@@ -1,32 +1,31 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
-{% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Upgrade Membership - AI App</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-<header>
-    <h1>Upgrade Your Plan</h1>
-    <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
-</header>
+{% block title %}Upgrade Membership{% endblock %}
 
-<main class="plans">
+{% block content %}
+<h1>Upgrade Your Plan</h1>
+
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</div>
+
+<hr>
+
+<div class="plans-container">
+  {% if plans %}
     {% for plan in plans %}
-        <div class="plan-card">
-            <h2>{{ plan.name }}</h2>
-            <p><strong>${{ plan.price }}</strong> / {{ plan.billing }}</p>
-            <p>{{ plan.description }}</p>
-            <form action="{{ url_for('subscribe_plan') }}" method="POST">
-                <input type="hidden" name="plan_id" value="{{ plan.id }}">
-                <button type="submit" class="btn">Choose {{ plan.name }}</button>
-            </form>
-        </div>
+      <div class="plan-card">
+        <h2>{{ plan.name }}</h2>
+        <p><strong>${{ plan.price }}</strong> / {{ plan.billing }}</p>
+        <p>{{ plan.description }}</p>
+        <form action="{{ url_for('subscribe_plan') }}" method="POST">
+          <input type="hidden" name="plan_id" value="{{ plan.id }}">
+          <button type="submit">Choose {{ plan.name }}</button>
+        </form>
+      </div>
+      <hr>
     {% endfor %}
-</main>
-</body>
-</html>
+  {% else %}
+    <p>No membership plans available at the moment.</p>
+  {% endif %}
+</div>
 {% endblock %}
