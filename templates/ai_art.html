@@ -1,32 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
+{% block title %}AI Art Generator{% endblock %}
+
 {% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>AI Art Generator</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-<header>
-  <h1>Generate AI Art</h1>
-  <a href="{{ url_for('dashboard') }}">← Back</a>
-</header>
+<h1>Generate AI Art</h1>
 
-<main>
-  <form method="POST" action="{{ url_for('generate_ai_art') }}">
-    <input type="text" name="prompt" placeholder="Describe your image..." required>
-    <button type="submit" class="btn">Generate</button>
-  </form>
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</div>
 
-  {% if image_url %}
-    <section>
-      <h2>Result</h2>
-      <img src="{{ image_url }}" alt="Generated Art">
-    </section>
-  {% endif %}
-</main>
-</body>
-</html>
+<hr>
+
+<form method="POST" action="{{ url_for('generate_ai_art') }}" class="center-form">
+  <input type="text" name="prompt" placeholder="Describe your image..." required><br><br>
+  <button type="submit">Generate</button>
+</form>
+
+{% if image_url %}
+  <hr>
+  <h2>Generated Result</h2>
+  <div class="center-form">
+    <img src="{{ image_url }}" alt="Generated AI Art" style="max-width: 100%; border: 1px solid #ccc; padding: 5px;">
+  </div>
+{% endif %}
 {% endblock %}
