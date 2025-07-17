@@ -1,37 +1,38 @@
 {% extends "base.html" %}
-{% block title %}Chatbot{% endblock %}
-{% block content %}
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <title>Voice Assistant</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="dark-theme">
-<header>
-  <h1>Talk to AI</h1>
-  <a href="{{ url_for('dashboard') }}">← Back</a>
-</header>
+{% block title %}Voice Assistant{% endblock %}
 
-<main>
-  <button onclick="startListening()" class="btn">🎙 Start Talking</button>
-  <div id="transcript"></div>
-  <script>
-    function startListening() {
-      const recognition = new webkitSpeechRecognition();
-      recognition.continuous = false;
-      recognition.interimResults = false;
-      recognition.lang = 'en-US';
-      recognition.start();
-      recognition.onresult = (event) => {
-        const transcript = event.results[0][0].transcript;
-        document.getElementById("transcript").innerText = "You said: " + transcript;
-        // Send transcript to backend (not shown here)
-      };
-    }
-  </script>
-</main>
-</body>
-</html>
+{% block content %}
+<h1>Talk to AI</h1>
+
+<div class="center-form">
+  <a href="{{ url_for('dashboard') }}">← Back to Dashboard</a>
+</div>
+
+<hr>
+
+<div class="center-form">
+  <button onclick="startListening()">🎙 Start Talking</button>
+</div>
+
+<div id="transcript" class="center-form"></div>
+
+<script>
+  function startListening() {
+    const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+    recognition.continuous = false;
+    recognition.interimResults = false;
+    recognition.lang = 'en-US';
+    recognition.start();
+
+    recognition.onresult = (event) => {
+      const transcript = event.results[0][0].transcript;
+      document.getElementById("transcript").innerText = "You said: " + transcript;
+      // TODO: You can send transcript to backend using fetch or AJAX here
+    };
+
+    recognition.onerror = (event) => {
+      document.getElementById("transcript").innerText = "Error: " + event.error;
+    };
+  }
+</script>
 {% endblock %}
