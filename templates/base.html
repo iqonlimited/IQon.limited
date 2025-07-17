@@ -4,35 +4,39 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>{% block title %}My AI App{% endblock %}</title>
+
+  <!-- Main Styles -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/main.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/sidebar.css') }}">
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/login_popup.css') }}">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
+
 <body>
 
 <!-- Sidebar -->
 <div class="sidebar">
-  <h2>🤖 AI App</h2>
-  <a href="/dashboard">🏠 Dashboard</a>
-  <a href="/chatbot">💬 AI Chatbot</a>
-  <a href="/text-to-video">🎬 Text to Video</a>
-  <a href="/image-to-anime">🎨 Image to Anime</a>
-  <a href="/photo-to-video">📽️ Photo to Video</a>
-  <a href="/converter">🗂️ File Converter</a>
-  <a href="/ai-art">🖌️ AI Art Generator</a>
-  <a href="/voice-chat">🎙️ Voice Chat</a>
-  <a href="/ebook-store">📚 Ebook Store</a>
-  <a href="/audiobook">🎧 Audiobooks</a>
-  <a href="/leaderboard">🏆 Leaderboard</a>
-  <a href="/forum">💬 Community Forum</a>
-  <a href="/your-idea">💡 Your Idea</a>
-  <a href="/notifications">🔔 Notifications</a>
-  <a href="/wallet">💰 Wallet</a>
-  <a href="/upgrade">💎 Upgrade Plan</a>
-  <a href="/settings">⚙️ Settings</a>
-  <a href="/global-search">🌍 Global Search</a>
-  <a href="/maintenance">🚧 Maintenance</a>
+  <a href="/dashboard">🏠 <span>Dashboard</span></a>
+  <a href="/chatbot">💬 <span>Chatbot</span></a>
+  <a href="/text-to-video">🎬 <span>Text to Video</span></a>
+  <a href="/image-to-anime">🎨 <span>Image to Anime</span></a>
+  <a href="/photo-to-video">📽️ <span>Photo to Video</span></a>
+  <a href="/converter">🗂️ <span>Converter</span></a>
+  <a href="/ai-art">🖌️ <span>AI Art</span></a>
+  <a href="/voice-chat">🎙️ <span>Voice Chat</span></a>
+  <a href="/ebook-store">📚 <span>Ebook Store</span></a>
+  <a href="/audiobook">🎧 <span>Audiobooks</span></a>
+  <a href="/leaderboard">🏆 <span>Leaderboard</span></a>
+  <a href="/forum">💬 <span>Forum</span></a>
+  <a href="/your-idea">💡 <span>Your Idea</span></a>
+  <a href="/notifications">🔔 <span>Notifications</span></a>
+  <a href="/wallet">💰 <span>Wallet</span></a>
+  <a href="/upgrade">💎 <span>Upgrade</span></a>
+  <a href="/settings">⚙️ <span>Settings</span></a>
+  <a href="/global-search">🌍 <span>Search</span></a>
+  <a href="/maintenance">🚧 <span>Maintenance</span></a>
 
-  <a href="/membership" class="membership-btn">💎 Membership</a>
+  <a href="/membership" class="membership-btn">💎 <span>Membership</span></a>
 </div>
 
 <!-- Notification Bar -->
@@ -42,7 +46,16 @@
 
 <!-- Main Content -->
 <div class="main-content">
+  <div class="container">
+    <h1 class="header-title">Feel Free to Ask</h1>
+    <div class="search-bar">
+      <input type="text" placeholder="Type your command...">
+      <button>➔</button>
+    </div>
+  </div>
+
   {% block content %}{% endblock %}
+
   <footer>&copy; 2025 AI App. All rights reserved.</footer>
 </div>
 
@@ -61,7 +74,9 @@
   </div>
 </div>
 
+<!-- JS Scripts -->
 <script src="{{ url_for('static', filename='js/login_popup.js') }}"></script>
+<script src="{{ url_for('static', filename='js/sidebar.js') }}"></script>
 
 </body>
 </html>
