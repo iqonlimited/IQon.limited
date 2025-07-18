@@ -24,3 +24,13 @@ micBtn.addEventListener("click", () => {
 
     recognition.start();
 });
+<script>
+function startListening() {
+  const recognition = new webkitSpeechRecognition() || new SpeechRecognition();
+  recognition.lang = 'en-US';
+  recognition.start();
+  recognition.onresult = (e) => {
+    document.getElementById("transcript").innerText = e.results[0][0].transcript;
+  };
+}
+</script>
