@@ -4,7 +4,9 @@ from werkzeug.utils import secure_filename
 from modules import user, ebook, question, feedback, transaction, analytics
 from modules.helper import authenticate_user, load_json, save_json
 from dotenv import load_dotenv
-
+from flask import Flask, render_template, request, session
+from flask_session import Session
+from modules.chatbot_logic import get_answer_from_json, get_fallback_ai_response
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -54,13 +56,17 @@ def dashboard():
 # -------------------- Main Features --------------------
 @app.route('/chatbot', methods=['GET', 'POST'])
 def chatbot():
-    chat_history = []
+    if 'chat_history' not in session:
+        session['chat_history'] = []
     if request.method == 'POST':
         user_input = request.form['user_input']
-        chat_history.append({"role": "user", "text": user_input})
-        # You can integrate AI response here
-        chat_history.append({"role": "bot", "text": "This is a dummy AI response."})
-    return render_template('chatbot.html', chat_history=chat_history)
+        role = session.get('role', 'guest')
+        answer = get_answer_from_json(user_input, role)
+        if not answer:
+            answer = get_fallback_ai_response(user_input)
+        session['chat_history'].append({'role': 'user', 'text': user_input})
+        session['chat_history'].append({'role': 'bot', 'text': answer})
+    return render_template('chatbot.html', chat_history=session['chat_history'])
 
 @app.route('/converter', methods=['GET', 'POST'])
 def converter():
