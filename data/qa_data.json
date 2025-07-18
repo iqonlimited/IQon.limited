@@ -20,3 +20,15 @@
   "admin": [],
   "employee": []
 }
+{
+  "guest": [
+    { "question": "hello", "answer": "Hi there! How can I help you today?" },
+    { "question": "help", "answer": "I am IQon AI. Ask me anything." }
+  ],
+  "employee": [
+    { "question": "what is policy", "answer": "Our policy is strict and secure." }
+  ],
+  "admin": [
+    { "question": "show revenue", "answer": "Total revenue is $5000 this month." }
+  ]
+}
