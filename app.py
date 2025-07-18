@@ -194,9 +194,25 @@ def upload_ebook():
             flash('Ebook Uploaded!')
     return render_template('upload_ebook.html')
 
-@app.route('/ai-training-mode')
+@app.route('/ai-training-mode', methods=['GET', 'POST'])
 def ai_training_mode():
-    return render_template('ai_training_mode.html')
+    if session.get('role') not in ['admin', 'employee']:
+        return redirect(url_for('login'))
+    training_data = load_json('data/qa_data.json')
+    if request.method == 'POST':
+        question = request.form['question']
+        answer = request.form['answer']
+        membership = request.form['membership']
+        training_data.append({
+            "question": question,
+            "answer": answer,
+            "membership": membership,
+            "added_by": session.get('email'),
+            "date": get_current_time()
+        })
+        save_json('data/qa_data.json', training_data)
+        flash('Q&A added to training data.')
+    return render_template('ai_training_mode.html', qa_data=training_data)
 
 @app.route('/analytics-dashboard')
 def analytics_dashboard():
@@ -209,6 +225,21 @@ def search():
 @app.route('/maintenance')
 def maintenance():
     return render_template('maintenance.html')
+
+@app.route('/global-search', methods=['GET'])
+def global_search():
+    query = request.args.get('query', '').lower()
+    results = []
+    # Search in QA Data
+    qa_data = load_json('data/qa_data.json')
+    results += [q for q in qa_data if query in q['question'].lower()]
+    # Search in Ebook Titles
+    ebooks = load_json('data/ebooks.json')
+    results += [e for e in ebooks if query in e['title'].lower()]
+    # Search in Uploaded Files (Example)
+    uploads = os.listdir('static/uploads/')
+    results += [u for u in uploads if query in u.lower()]
+    return render_template('search_results.html', query=query, results=results)
 
 # -------------------- Actions & Logic --------------------
 @app.route('/send-notification', methods=['POST'])
