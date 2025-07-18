@@ -181,6 +181,17 @@ def notifications():
 
 @app.route('/upload-ebook', methods=['GET', 'POST'])
 def upload_ebook():
+    if request.method == 'POST':
+        title = request.form['title']
+        file = request.files['file']
+        if file:
+            filename = secure_filename(file.filename)
+            filepath = os.path.join(app.config['UPLOAD_FOLDER'], 'ebooks', filename)
+            file.save(filepath)
+            ebooks = load_json('data/ebooks.json')
+            ebooks.append({"title": title, "file": filepath, "uploaded_by": session.get('email')})
+            save_json('data/ebooks.json', ebooks)
+            flash('Ebook Uploaded!')
     return render_template('upload_ebook.html')
 
 @app.route('/ai-training-mode')
