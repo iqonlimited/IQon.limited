@@ -143,6 +143,10 @@ def forum():
 
 @app.route('/settings', methods=['GET', 'POST'])
 def settings():
+    if request.method == 'POST':
+        language = request.form['language']
+        session['language'] = language
+        flash('Language preference saved.')
     return render_template('settings.html')
 
 @app.route('/notifications')
