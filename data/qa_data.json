@@ -12,3 +12,11 @@
     {"question": "What is AI?", "answer": "AI is the interdisciplinary science that combines algorithms, data, and computing power to simulate intelligent behavior."}
   ]
 }
+{
+  "guest": [
+    { "question": "hello", "answer": "Hi there! I am IQon AI." },
+    { "question": "help", "answer": "Sure! How can I assist you?" }
+  ],
+  "admin": [],
+  "employee": []
+}
