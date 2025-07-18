@@ -102,7 +102,12 @@ def ebook_store():
 
 @app.route('/ai-art', methods=['GET', 'POST'])
 def ai_art():
-    return render_template('ai_art.html')
+    image_url = None
+    if request.method == 'POST':
+        prompt = request.form['prompt']
+        # You can integrate real Stable Diffusion here later
+        image_url = f"/static/images/placeholder.jpg"
+    return render_template('ai_art.html', image_url=image_url)
 
 @app.route('/voice-chat', methods=['GET', 'POST'])
 def voice_chat():
