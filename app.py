@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from flask import Flask, render_template, request, session
 from flask_session import Session
 from modules.chatbot_logic import get_answer_from_json, get_fallback_ai_response
+from modules.ai_model import get_ai_response
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
@@ -134,13 +135,13 @@ def chatbot():
     role = session.get('role', 'guest')
     if request.method == 'POST':
         user_input = request.form['user_input']
-        answer = get_answer_from_json(user_input, role) or get_fallback_ai_response(user_input)
+        answer = get_answer_from_json(user_input, role) or get_ai_response(user_input)
         session['chat_history'].append({'role': 'user', 'text': user_input})
         session['chat_history'].append({'role': 'bot', 'text': answer})
         if 'user_data' in session:
             update_leaderboard(session['user_data'])
     return render_template('chatbot.html', chat_history=session['chat_history'])
-
+    
 @app.route('/upgrade')
 def upgrade():
     return render_template('upgrade.html')
