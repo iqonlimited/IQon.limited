@@ -4,17 +4,20 @@ from werkzeug.utils import secure_filename
 from modules import user, ebook, question, feedback, transaction, analytics
 from modules.helper import authenticate_user, load_json, save_json
 from dotenv import load_dotenv
-from flask import Flask, render_template, request, session
-from flask_session import Session
-from modules.chatbot_logic import get_answer_from_json, get_fallback_ai_response
+from modules.chatbot_logic import get_answer_from_json
 from modules.ai_model import get_ai_response
+from datetime import datetime
+
 load_dotenv()
 app = Flask(__name__)
 app.secret_key = os.getenv("SECRET_KEY", "supersecretkey")
 
 UPLOAD_FOLDER = 'static/uploads'
-ALLOWED_EXTENSIONS = {'pdf', 'png', 'jpg', 'jpeg', 'gif', 'mp4', 'zip', 'docx', 'txt'}
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+# -------------------- Utility --------------------
+def get_current_time():
+    return datetime.now().strftime("%Y-%m-%d %H:%M:%S")
 
 # -------------------- Auth & Login --------------------
 @app.route('/login', methods=['GET', 'POST'])
@@ -54,8 +57,7 @@ def dashboard():
         return redirect(url_for('login'))
     return render_template('dashboard.html')
 
-# -------------------- Main Features --------------------
-
+# -------------------- Features --------------------
 @app.route('/converter', methods=['GET', 'POST'])
 def converter():
     if request.method == 'POST':
@@ -85,15 +87,15 @@ def manage_qa():
         flash('Q&A Added Successfully.')
     return render_template('admin_add_qa.html', qa_data=qa_data)
 
-@app.route('/image-to-anime', methods=['GET', 'POST'])
+@app.route('/image-to-anime')
 def image_to_anime():
     return render_template('image_to_anime.html')
 
-@app.route('/text-to-video', methods=['GET', 'POST'])
+@app.route('/text-to-video')
 def text_to_video():
     return render_template('text_to_video.html')
 
-@app.route('/photo-to-video', methods=['GET', 'POST'])
+@app.route('/photo-to-video')
 def photo_to_video():
     return render_template('photo_to_video.html')
 
@@ -106,11 +108,10 @@ def ai_art():
     image_url = None
     if request.method == 'POST':
         prompt = request.form['prompt']
-        # You can integrate real Stable Diffusion here later
         image_url = f"/static/images/placeholder.jpg"
     return render_template('ai_art.html', image_url=image_url)
 
-@app.route('/voice-chat', methods=['GET', 'POST'])
+@app.route('/voice-chat')
 def voice_chat():
     return render_template('voice_chat.html')
 
@@ -118,30 +119,10 @@ def voice_chat():
 def audiobook_dashboard():
     return render_template('audiobook_dashboard.html')
 
-def update_leaderboard(user_data):
-    leaderboard = load_json('data/leaderboard.json')
-    for key in ['country', 'state', 'city']:
-        entry = next((e for e in leaderboard[key] if e['name'] == user_data[key]), None)
-        if entry:
-            entry['count'] += 1
-        else:
-            leaderboard[key].append({'name': user_data[key], 'count': 1})
-    save_json('data/leaderboard.json', leaderboard)
+@app.route('/leaderboard')
+def leaderboard():
+    return render_template('leaderboard.html')
 
-@app.route('/chatbot', methods=['GET', 'POST'])
-def chatbot():
-    if 'chat_history' not in session:
-        session['chat_history'] = []
-    role = session.get('role', 'guest')
-    if request.method == 'POST':
-        user_input = request.form['user_input']
-        answer = get_answer_from_json(user_input, role) or get_ai_response(user_input)
-        session['chat_history'].append({'role': 'user', 'text': user_input})
-        session['chat_history'].append({'role': 'bot', 'text': answer})
-        if 'user_data' in session:
-            update_leaderboard(session['user_data'])
-    return render_template('chatbot.html', chat_history=session['chat_history'])
-    
 @app.route('/upgrade')
 def upgrade():
     return render_template('upgrade.html')
@@ -171,7 +152,7 @@ def notifications():
         audience = request.form['audience']
         message = request.form['message']
         new_note = {
-            "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "date": get_current_time(),
             "audience": audience,
             "message": message
         }
@@ -223,44 +204,56 @@ def analytics_dashboard():
 def search():
     return render_template('search_results.html')
 
-@app.before_request
-def check_maintenance():
-    config = load_json('data/app_config.json')
-    if config.get('maintenance_mode') and request.endpoint != 'maintenance':
-        return redirect(url_for('maintenance'))
+@app.route('/maintenance')
+def maintenance():
+    return render_template('maintenance.html')
+
+# -------------------- Chatbot & Search --------------------
+def update_leaderboard(user_data):
+    leaderboard = load_json('data/leaderboard.json')
+    for key in ['country', 'state', 'city']:
+        entry = next((e for e in leaderboard[key] if e['name'] == user_data[key]), None)
+        if entry:
+            entry['count'] += 1
+        else:
+            leaderboard[key].append({'name': user_data[key], 'count': 1})
+    save_json('data/leaderboard.json', leaderboard)
+
+@app.route('/chatbot', methods=['GET', 'POST'])
+def chatbot():
+    if 'chat_history' not in session:
+        session['chat_history'] = []
+    role = session.get('role', 'guest')
+    if request.method == 'POST':
+        user_input = request.form['user_input']
+        answer = get_answer_from_json(user_input, role) or get_ai_response(user_input)
+        session['chat_history'].append({'role': 'user', 'text': user_input})
+        session['chat_history'].append({'role': 'bot', 'text': answer})
+        if 'user_data' in session:
+            update_leaderboard(session['user_data'])
+    return render_template('chatbot.html', chat_history=session['chat_history'])
 
 @app.route('/global-search', methods=['GET'])
 def global_search():
     query = request.args.get('query', '').lower()
     results = []
-    # Search in QA Data
     qa_data = load_json('data/qa_data.json')
     results += [q for q in qa_data if query in q['question'].lower()]
-    # Search in Ebook Titles
     ebooks = load_json('data/ebooks.json')
     results += [e for e in ebooks if query in e['title'].lower()]
-    # Search in Uploaded Files (Example)
     uploads = os.listdir('static/uploads/')
     results += [u for u in uploads if query in u.lower()]
     return render_template('search_results.html', query=query, results=results)
 
-# -------------------- Actions & Logic --------------------
+# -------------------- Subscription & Notification --------------------
 @app.route('/send-notification', methods=['POST'])
 def send_notification():
     if session.get('role') not in ['admin', 'employee']:
         return redirect(url_for('login'))
-    audience = request.form['audience']
-    message = request.form['message']
     flash('Notification sent successfully!')
     return redirect(url_for('notifications'))
 
 @app.route('/subscribe', methods=['POST'])
-def subscribe_plan():
-    plan_id = request.form['plan_id']
-    flash('Plan subscription successful!')
-    return redirect(url_for('upgrade'))
-   
-    @app.route('/subscribe_plan', methods=['POST'])
 def subscribe_plan():
     if not session.get('email'):
         return redirect(url_for('login'))
@@ -276,6 +269,12 @@ def subscribe_plan():
     flash('Subscription Successful!')
     return redirect(url_for('upgrade'))
 
+# -------------------- Middleware --------------------
+@app.before_request
+def check_maintenance():
+    config = load_json('data/app_config.json')
+    if config.get('maintenance_mode') and request.endpoint != 'maintenance':
+        return redirect(url_for('maintenance'))
 
 # -------------------- Error Handler --------------------
 @app.errorhandler(404)
