@@ -54,19 +54,6 @@ def dashboard():
     return render_template('dashboard.html')
 
 # -------------------- Main Features --------------------
-@app.route('/chatbot', methods=['GET', 'POST'])
-def chatbot():
-    if 'chat_history' not in session:
-        session['chat_history'] = []
-    role = session.get('role', 'guest')
-    if request.method == 'POST':
-        user_input = request.form['user_input']
-        answer = get_answer_from_json(user_input, role)
-        if not answer:
-            answer = get_fallback_ai_response(user_input)
-        session['chat_history'].append({'role': 'user', 'text': user_input})
-        session['chat_history'].append({'role': 'bot', 'text': answer})
-    return render_template('chatbot.html', chat_history=session['chat_history'])
 
 @app.route('/converter', methods=['GET', 'POST'])
 def converter():
@@ -125,9 +112,29 @@ def voice_chat():
 def audiobook_dashboard():
     return render_template('audiobook_dashboard.html')
 
-@app.route('/leaderboard')
-def leaderboard():
-    return render_template('leaderboard.html')
+def update_leaderboard(user_data):
+    leaderboard = load_json('data/leaderboard.json')
+    for key in ['country', 'state', 'city']:
+        entry = next((e for e in leaderboard[key] if e['name'] == user_data[key]), None)
+        if entry:
+            entry['count'] += 1
+        else:
+            leaderboard[key].append({'name': user_data[key], 'count': 1})
+    save_json('data/leaderboard.json', leaderboard)
+
+@app.route('/chatbot', methods=['GET', 'POST'])
+def chatbot():
+    if 'chat_history' not in session:
+        session['chat_history'] = []
+    role = session.get('role', 'guest')
+    if request.method == 'POST':
+        user_input = request.form['user_input']
+        answer = get_answer_from_json(user_input, role) or get_fallback_ai_response(user_input)
+        session['chat_history'].append({'role': 'user', 'text': user_input})
+        session['chat_history'].append({'role': 'bot', 'text': answer})
+        if 'user_data' in session:
+            update_leaderboard(session['user_data'])
+    return render_template('chatbot.html', chat_history=session['chat_history'])
 
 @app.route('/upgrade')
 def upgrade():
