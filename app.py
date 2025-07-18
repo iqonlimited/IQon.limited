@@ -222,9 +222,11 @@ def analytics_dashboard():
 def search():
     return render_template('search_results.html')
 
-@app.route('/maintenance')
-def maintenance():
-    return render_template('maintenance.html')
+@app.before_request
+def check_maintenance():
+    config = load_json('data/app_config.json')
+    if config.get('maintenance_mode') and request.endpoint != 'maintenance':
+        return redirect(url_for('maintenance'))
 
 @app.route('/global-search', methods=['GET'])
 def global_search():
@@ -256,6 +258,23 @@ def subscribe_plan():
     plan_id = request.form['plan_id']
     flash('Plan subscription successful!')
     return redirect(url_for('upgrade'))
+   
+    @app.route('/subscribe_plan', methods=['POST'])
+def subscribe_plan():
+    if not session.get('email'):
+        return redirect(url_for('login'))
+    plan_id = request.form['plan_id']
+    transactions = load_json('data/transactions.json')
+    transactions.append({
+        "user": session['email'],
+        "plan_id": plan_id,
+        "date": get_current_time(),
+        "status": "success"
+    })
+    save_json('data/transactions.json', transactions)
+    flash('Subscription Successful!')
+    return redirect(url_for('upgrade'))
+
 
 # -------------------- Error Handler --------------------
 @app.errorhandler(404)
