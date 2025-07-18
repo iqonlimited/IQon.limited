@@ -27,5 +27,12 @@
   </select><br><br>
 
   <button type="submit">Save Settings</button>
+  <form action="{{ url_for('settings') }}" method="POST">
+  <select name="language">
+    <option value="en">English</option>
+    <option value="es">Spanish</option>
+    <option value="hi">Hindi</option>
+  </select>
+  <button type="submit">Save Language</button>
 </form>
 {% endblock %}
