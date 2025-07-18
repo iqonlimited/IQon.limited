@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% block title %}Manage Q&A{% endblock %}
+{% block content %}
+<h1>Manage Q&A</h1>
+<form method="POST">
+  <input type="text" name="question" placeholder="Enter Question..." required>
+  <input type="text" name="answer" placeholder="Enter Answer..." required>
+  <select name="role">
+    <option value="guest">Guest</option>
+    <option value="employee">Employee</option>
+    <option value="admin">Admin</option>
+  </select>
+  <button type="submit">Add Q&A</button>
+</form>
+
+<h2>Existing Q&As</h2>
+<ul>
+  {% for role, qas in qa_data.items() %}
+    <li><strong>{{ role|capitalize }}</strong>
+      <ul>
+        {% for qa in qas %}
+          <li>Q: {{ qa.question }} | A: {{ qa.answer }}</li>
+        {% endfor %}
+      </ul>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}
