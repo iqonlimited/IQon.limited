@@ -58,9 +58,9 @@ def dashboard():
 def chatbot():
     if 'chat_history' not in session:
         session['chat_history'] = []
+    role = session.get('role', 'guest')
     if request.method == 'POST':
         user_input = request.form['user_input']
-        role = session.get('role', 'guest')
         answer = get_answer_from_json(user_input, role)
         if not answer:
             answer = get_fallback_ai_response(user_input)
