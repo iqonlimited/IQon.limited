@@ -1,3 +1,8 @@
 [
   { "user_id": "u2", "city": "Delhi", "state": "UP", "country": "India", "chat_count": 874, "last_update": "2025-06-20T11:00:00Z" }
 ]
+{
+  "country": [],
+  "state": [],
+  "city": []
+}
