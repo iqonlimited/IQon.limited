@@ -80,6 +80,23 @@ def converter():
             flash('File converted successfully.')
     return render_template('converter.html')
 
+@app.route('/admin/manage-qa', methods=['GET', 'POST'])
+def manage_qa():
+    if session.get('role') != 'admin':
+        return redirect(url_for('login'))
+    qa_data = load_json('data/qa_data.json')
+    if request.method == 'POST':
+        question = request.form['question']
+        answer = request.form['answer']
+        role = request.form['role']
+        new_qa = {'question': question, 'answer': answer}
+        if role not in qa_data:
+            qa_data[role] = []
+        qa_data[role].append(new_qa)
+        save_json('data/qa_data.json', qa_data)
+        flash('Q&A Added Successfully.')
+    return render_template('admin_add_qa.html', qa_data=qa_data)
+
 @app.route('/image-to-anime', methods=['GET', 'POST'])
 def image_to_anime():
     return render_template('image_to_anime.html')
