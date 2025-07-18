@@ -149,9 +149,23 @@ def settings():
         flash('Language preference saved.')
     return render_template('settings.html')
 
-@app.route('/notifications')
+@app.route('/notifications', methods=['GET', 'POST'])
 def notifications():
-    return render_template('notifications.html')
+    if session.get('role') not in ['admin', 'employee']:
+        return redirect(url_for('login'))
+    notifications = load_json('data/notifications.json')
+    if request.method == 'POST':
+        audience = request.form['audience']
+        message = request.form['message']
+        new_note = {
+            "date": datetime.now().strftime("%Y-%m-%d %H:%M"),
+            "audience": audience,
+            "message": message
+        }
+        notifications.append(new_note)
+        save_json('data/notifications.json', notifications)
+        flash('Notification sent!')
+    return render_template('notifications.html', notifications=notifications)
 
 @app.route('/upload-ebook', methods=['GET', 'POST'])
 def upload_ebook():
